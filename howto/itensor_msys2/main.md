@@ -2,7 +2,6 @@
 
 ## Install Toolchain
 1. Download and install msys2 from http://www.msys2.org/. Install x86_64 version.
-
 2. Start MSYS2 MinGW 64-bit and update the package database and core system packages:
   ```
   pacman -Syu
@@ -52,7 +51,7 @@
       ⋮
   ITENSOR_MAKE_DYLIB=1
   ```
-Also add
+  Also add
   ```Makefile
   DYLIB_EXT = dll
   DYLIB_FLAGS = -shared -Wl,--export-all-symbols -Wl,--enable-auto-import -Wl,--out-implib,$@.a
