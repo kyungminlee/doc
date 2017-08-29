@@ -12,13 +12,13 @@ $ pacman -S mingw-w64-x86_64-toolchain git make vim
 
 ### Install OpenBLAS
 
-ITensor uses BLAS and LAPACK routines. OpenBLAS is an open source implementation of the BLAS, bundled with the reference LAPACK implementation from netlib by default. Binary packages of OpenBLAS for Windows can normally be downloaded from http://www.openblas.net/. However, the binary package for the most recent version `v0.2.20` is not available for some reason. Previous version `v0.2.19` uses an older version of gfortran, so I recommend building OpenBLAS yourself.
+ITensor uses BLAS and LAPACK routines. OpenBLAS is an open source implementation of the BLAS, bundled with the reference LAPACK implementation from netlib by default. Binary packages of OpenBLAS for Windows can normally be downloaded from http://www.openblas.net/. However, the binary package for the most recent version `v0.2.20` is not available for some reason. Binary package of a previous version `v0.2.19` is available, but it uses an older version of gfortran. So I recommend building OpenBLAS yourself.
 
 To clone the OpenBLAS repository:
 ```
 $ git clone https://github.com/xianyi/OpenBLAS.git ~/.local/src/OpenBLAS
 ```
-This creates a subdirectory named `OpenBLAS` under `~/.local/src`. After cloning, you can list all the previous releases by the following commands: 
+This creates a directory named `OpenBLAS` under `~/.local/src`. After cloning, you can list all the previous releases by the following commands: 
 ```
 $ cd ~/.local/src/OpenBLAS
 $ git tag
@@ -48,8 +48,7 @@ ITensor uses `options.mk` for configuration. A sample configuration file `option
 $ cd ~/.local/src/ITensor
 $ cp options.mk.sample options.mk
 ```
-
-3. Edit `options.mk` using vim (or any of your favorite editors)
+Edit `options.mk` using vim (or your favorite text editor)
 ```
 $ vim options.mk
 ```
@@ -66,7 +65,7 @@ BLAS_LAPACK_INCLUDEFLAGS=-I$(HOME)/.local/pkg/OpenBLAS-v0.2.20-Win64-int32/inclu
     ⋮
 ITENSOR_MAKE_DYLIB=1
 ```
-The compiler flags `-Wa,-mbig-obj -O2` is a workaround for Windows's limitation. Because of the `-O2` flag, even the debug build will be optimized. This will unfortunately interfere with a debugger if you are using one, and make it difficult for you to debug. `ITENSOR_MAKE_DYLIB=1` is for building dynamic library files `libitensor.dll` and `libitensor-g.dll`. Currently, the sample configuration included in ITensor does not support building of `.dll` files. You need to add the following lines to `options.mk`:
+The compiler flags `-Wa,-mbig-obj -O2` is a workaround for Windows's limitation on binary files. Because of the `-O2` flag, even the debug build will be optimized. This will unfortunately interfere with a debugger if you are using one, making debugging difficult. `ITENSOR_MAKE_DYLIB=1` is for building dynamic library files `libitensor.dll` and `libitensor-g.dll`. Currently, the sample configuration included in ITensor does not support building of `.dll` files. You need to add the following lines to `options.mk`:
 ```Makefile
 DYLIB_EXT=dll
 DYLIB_FLAGS=-shared \
@@ -95,8 +94,7 @@ We're done.
 
 Let me now show you how to use the library that you just built in your application. Let's say that you have a `ex.cc` file with a main function which uses ITensor library.
 
-* ex.cc
-
+ex.cc
 ```c++
 #include <iostream>
 #include <itensor/all.h>
@@ -117,8 +115,9 @@ int main(int argc, char** argv)
 }
 ```
 
-* Makefile
+To compile `ex.cc`, you use the following Makefile:
 
+Makefile
 ```make
 OPENBLAS_ROOT = $(HOME)/.local/pkg/OpenBLAS-v0.2.20-Win64-int32
 ITENSOR_ROOT = $(HOME)/.local/pkg/ITensor
@@ -142,4 +141,21 @@ ex: ex.cc
 	$(CXX) $< -o $@ $(CXXFLAGS) $(LDFLAGS) $(LIBS)
 ```
 
+Typing `make` will create `ex.exe`.
+
 ![Example](http://kyungminlee.org/doc/howto/itensor_msys2/run_ex.png)
+
+The resulting binary `ex.exe`, however, has all the dependent libraries (`itensor`, `openblas`, `pthread`, ...) statically linked to it. This will increase size of the binary file and also the build time. To dynamically link the libraries instead, you can remove the flags `-static-libgcc', '-static-libstdc++', and '-Wl,-Bstatic':
+```
+LIBS = \
+	-litensor \
+	-lopenblas \
+	-lpthread \
+	-lgfortran \
+	-lquadmath
+```
+The `ex.exe` built by this Makefile is smaller then before. When you try to run it, however, it will complain about the missing dll files:
+
+![Example](http://kyungminlee.org/doc/howto/itensor_msys2/run_ex_dynamic.png)
+
+```
