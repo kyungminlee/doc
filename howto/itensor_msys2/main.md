@@ -16,7 +16,7 @@ ITensor uses BLAS and LAPACK routines. OpenBLAS is an open source implementation
 
 To clone the OpenBLAS repository:
 ```
-git clone https://github.com/xianyi/OpenBLAS.git
+$ git clone https://github.com/xianyi/OpenBLAS.git
 ```
 This creates a subdirectory named `OpenBLAS`. After cloning, you can list all the previous releases by the following commands: 
 ```
@@ -41,12 +41,12 @@ This creates directory `~/.local/pkg/OpenBLAS-v0.2.20-Win64-int32` with subdirec
 
 Now we can build ITensor. To clone the ITensor repository:
 ```
-git clone https://github.com/ITensor/ITensor.git
+$ git clone https://github.com/ITensor/ITensor.git
 ```
 ITensor uses `options.mk` for configuration. A sample configuration file `options.mk` is included in the ITensor repository. Copy it to `options.mk` by
 ```
-cd ITensor
-cp options.mk.sample options.mk
+$ cd ITensor
+$ cp options.mk.sample options.mk
 ```
 
 3. Edit `options.mk` using vim (or any of your favorite editors)
@@ -81,12 +81,12 @@ make -j4
 ```
 Once the build is finished, you can install the files to `~/.local/pkg/ITensor/` by
 ```
-mkdir -p ~/.local/pkg/ITensor/include
-mkdir -p ~/.local/pkg/ITensor/lib
-mkdir -p ~/.local/pkg/ITensor/bin
-cp -r itensor ~/.local/pkg/ITensor/include/
-cp -r lib/*.a ~/.local/pkg/ITensor/lib/
-cp -r lib/*.dll ~/.local/pkg/ITensor/bin/
+$ mkdir -p ~/.local/pkg/ITensor/include
+$ mkdir -p ~/.local/pkg/ITensor/lib
+$ mkdir -p ~/.local/pkg/ITensor/bin
+$ cp -r itensor ~/.local/pkg/ITensor/include/
+$ cp -r lib/*.a ~/.local/pkg/ITensor/lib/
+$ cp -r lib/*.dll ~/.local/pkg/ITensor/bin/
 ```
 We're done.
 
