@@ -72,53 +72,48 @@ cp -r lib/*.dll ~/.local/pkg/ITensor/bin/
 
 - Makefile
 
-    ```make
-    OPENBLAS_ROOT = $(HOME)/.local/pkg/OpenBLAS-v0.2.20-Win64-int32
-    ITENSOR_ROOT = $(HOME)/.local/pkg/ITensor
-    LIBS = \
-        -static-libgcc -static-libstdc++ \
-        -Wl,-Bstatic \
-            -litensor \
-            -lopenblas \
-            -lpthread \
-            -lgfortran \
-            -lquadmath
+  ```make
+  OPENBLAS_ROOT = $(HOME)/.local/pkg/OpenBLAS-v0.2.20-Win64-int32
+  ITENSOR_ROOT = $(HOME)/.local/pkg/ITensor
+  LIBS = \
+      -static-libgcc -static-libstdc++ \
+      -Wl,-Bstatic \
+          -litensor \
+          -lopenblas \
+          -lpthread \
+          -lgfortran \
+          -lquadmath
 
-    CXXFLAGS = \
-        -std=c++11 -O3 -Wall \
-        -I$(OPENBLAS_ROOT)/include \
-        -I$(ITENSOR_ROOT)/include
+  CXXFLAGS = \
+      -std=c++11 -O3 -Wall \
+      -I$(OPENBLAS_ROOT)/include \
+      -I$(ITENSOR_ROOT)/include
+  LDFLAGS = \
+      -L$(ITENSOR_ROOT)/lib \
+      -L$(OPENBLAS_ROOT)/lib
 
-    LDFLAGS = \
-        -L$(ITENSOR_ROOT)/lib \
-        -L$(OPENBLAS_ROOT)/lib
-
-    ex: ex.cc
-    	$(CXX) $< -o $@ $(CXXFLAGS) $(LDFLAGS) $(LIBS)
-    ```
+  ex: ex.cc
+  	$(CXX) $< -o $@ $(CXXFLAGS) $(LDFLAGS) $(LIBS)
+  ```
 
 - ex.c
 
-    ```c++
-    #include <iostream>
-    #include <itensor/all.h>
+  ```c++
+  #include <iostream>
+  #include <itensor/all.h>
 
-    int main(int argc, char** argv)
-    {
-        using namespace itensor;
-        Index i("index i", 3);
-        Index j("index j", 4);
-
-        ITensor T(i,j), U(i), S, V;
-
-        T.fill(1.0);
-        svd(T, U, S, V);
-
-        PrintData(T);
-        PrintData(U);
-        PrintData(S);
-        PrintData(V);
-
-        return 0;
-    }
-    ```
+  int main(int argc, char** argv)
+  {
+    using namespace itensor;
+    Index i("index i", 3);
+    Index j("index j", 4);
+    ITensor T(i,j), U(i), S, V;
+    T.fill(1.0);
+    svd(T, U, S, V);
+    PrintData(T);
+    PrintData(U);
+    PrintData(S);
+    PrintData(V);
+    return 0;
+  }
+  ```
