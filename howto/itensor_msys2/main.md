@@ -167,3 +167,5 @@ $ cp /mingw64/bin/libgcc_s_seh-1.dll /mingw64/bin/libstdc++-6.dll /mingw64/bin/l
 Now `ex.exe` is happy.
 
 ![Example-Dynamic-Run](http://kyungminlee.org/doc/howto/itensor_msys2/example_dynamic_run.png)
+
+You might be thinking, "Wait, why isn't it printing the data? The norms seem correct..." This is due to how static variables defined in header are treated differently in Linux (and Mac OS X) and Windows, and the current version of ITensor is not compatible with how Windows handles it. I won't go into detail, but hopefully this will be fixed soon.
