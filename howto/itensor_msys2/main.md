@@ -16,11 +16,11 @@ ITensor uses BLAS and LAPACK routines. OpenBLAS is an open source implementation
 
 To clone the OpenBLAS repository:
 ```
-$ git clone https://github.com/xianyi/OpenBLAS.git
+$ git clone https://github.com/xianyi/OpenBLAS.git ~/.local/src/OpenBLAS
 ```
-This creates a subdirectory named `OpenBLAS`. After cloning, you can list all the previous releases by the following commands: 
+This creates a subdirectory named `OpenBLAS` under `~/.local/src`. After cloning, you can list all the previous releases by the following commands: 
 ```
-$ cd OpenBLAS
+$ cd ~/.local/src/OpenBLAS
 $ git tag
 ```
 Checkout the latest release:
