@@ -29,11 +29,11 @@ $ git checkout v0.2.20
 ```
 To build the library, you simply need to `make`:
 ```
-make -j4
+$ make -j4
 ```
 After the compilation, you can install the files to `~/.local/pkg/OpenBLAS-v0.2.20-Win64-int32` (or any directory of your choice) by the following command:
 ```
-make PREFIX=~/.local/pkg/OpenBLAS-v0.2.20-Win64-int32 install
+$ make PREFIX=~/.local/pkg/OpenBLAS-v0.2.20-Win64-int32 install
 ```
 This creates directory `~/.local/pkg/OpenBLAS-v0.2.20-Win64-int32` with subdirectories `include`, `lib`, and `bin`, respectively containing the header files, `.a` files, and a `.dll` file.
 
@@ -77,7 +77,7 @@ DYLIB_FLAGS=-shared \
 
 After you've changed `options.mk`, you can build ITensor by
 ```
-make -j4
+$ make -j4
 ```
 Once the build is finished, you can install the files to `~/.local/pkg/ITensor/` by
 ```
