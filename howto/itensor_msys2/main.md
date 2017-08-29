@@ -5,7 +5,7 @@ In this guide I explain how to build ITensor library on Windows. Unfortunately, 
 
 ### Install Toolchain
 
-MSYS2 provides a convinent environment for the MinGW-w64 toolchain. MSYS2 can be downloaded from http://www.msys2.org/. Install x86_64 version and follow instructions on the msys2 webpage. After the updates, restart `MSYS2 MinGW 64-bit` and install the MinGW-w64 toolchain, git, msys-make and vim:
+MSYS2 provides a convinent environment for the MinGW-w64 toolchain. Go to [http://www.msys2.org/](http://www.msys2.org/) and download x86_64 version. Follow instructions on the MSYS2 webpage. After the updates, restart `MSYS2 MinGW 64-bit` and install the MinGW-w64 toolchain, git, msys-make and vim:
 ```
 $ pacman -S mingw-w64-x86_64-toolchain git make vim
 ```
