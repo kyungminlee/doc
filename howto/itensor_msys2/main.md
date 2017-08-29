@@ -170,4 +170,4 @@ Now `ex.exe` is happy.
 
 Wait...
 
-You might be thinking, "Why isn't it printing the data? The norms seem correct..." This is because of how static variables defined in header are treated differently in Linux (and Mac OS X) and in Windows; the current version of ITensor is not compatible with how Windows handles it. I won't go into detail, but hopefully this will be fixed soon.
+You might be thinking, "Why isn't it printing the data? The norms seem correct..." This is because of how static variables defined in header are handled differently in Linux (and Mac OS X) and in Windows; the current version of ITensor is not compatible with how Windows handles it. I won't go into detail, but hopefully this will be fixed soon.
