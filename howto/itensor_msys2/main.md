@@ -4,74 +4,74 @@
 1. Download and install msys2 from http://www.msys2.org/. Install x86_64 version.
 
 2. Start MSYS2 MinGW 64-bit and update the package database and core system packages:
-```
-pacman -Syu
-```
+  ```
+  pacman -Syu
+  ```
 3. Restart MSYS2 MinGW 64-bit, and install the toolchain:
-```
-pacman -S mingw-w64-x86_64-toolchain git make vim
-```
+  ```
+  pacman -S mingw-w64-x86_64-toolchain git make vim
+  ```
 
 ## Install OpenBLAS
 1. Clone OpenBLAS from github:
-```
-git clone https://github.com/xianyi/OpenBLAS.git
-```
+  ```
+  git clone https://github.com/xianyi/OpenBLAS.git
+  ```
 2. Check what the latest release is:
-```
-cd OpenBLAS
-git tag
-```
+  ```
+  cd OpenBLAS
+  git tag
+  ```
 3. Checkout the latest release and build:
-```
-git checkout v0.2.20
-make -j4
-make PREFIX=~/.local/pkg/OpenBLAS-v0.2.20 install
-```
+  ```
+  git checkout v0.2.20
+  make -j4
+  make PREFIX=~/.local/pkg/OpenBLAS-v0.2.20 install
+  ```
 
 ## Install ITensor
 
 1. Clone the ITensor repository.
-```
-git clone https://github.com/ITensor/ITensor.git
-```
+  ```
+  git clone https://github.com/ITensor/ITensor.git
+  ```
 2. Create the configuration file
-```
-cp options.mk.sample options.mk
-vim options.mk
-```
+  ```
+  cp options.mk.sample options.mk
+  ```
 3. Configure `options.mk`. Pay attention to the following lines:
-```Makefile
-CCCOM=g++ -std=c++11 -Wa,-mbig-obj -O2 -fPIC
-  ⋮
-PLATFORM=openblas
-BLAS_LAPACK_LIBFLAGS=-lpthread -L$(HOME)/.local/pkg/OpenBLAS-v0.2.20/lib -lopenblas
-BLAS_LAPACK_INCLUDEFLAGS=-I$(HOME)/.local/pkg/OpenBLAS-v0.2.20/include -fpermissive -DHAVE_LAPACK_CONFIG_H -DLAPACK_COMPLEX_STRUCTURE
-  ⋮
-ITENSOR_MAKE_DYLIB=1
-```
+  ```Makefile
+  CCCOM=g++ -std=c++11 -Wa,-mbig-obj -O2 -fPIC
+      ⋮
+  PLATFORM=openblas
+  BLAS_LAPACK_LIBFLAGS=-lpthread -L$(HOME)/.local/pkg/OpenBLAS-v0.2.20/lib -lopenblas
+  BLAS_LAPACK_INCLUDEFLAGS=-I$(HOME)/.local/pkg/OpenBLAS-v0.2.20/include \
+                           -fpermissive \
+                           -DHAVE_LAPACK_CONFIG_H \
+                           -DLAPACK_COMPLEX_STRUCTURE
+      ⋮
+  ITENSOR_MAKE_DYLIB=1
+  ```
 Also add
-```Makefile
-DYLIB_EXT = dll
-DYLIB_FLAGS = -shared -Wl,--export-all-symbols -Wl,--enable-auto-import -Wl,--out-implib,$@.a
-```
+  ```Makefile
+  DYLIB_EXT = dll
+  DYLIB_FLAGS = -shared -Wl,--export-all-symbols -Wl,--enable-auto-import -Wl,--out-implib,$@.a
+  ```
 4. Build
-```
-make -j4
-```
+  ```
+  make -j4
+  ```
 5. Install
-```
-mkdir -p ~/.local/pkg/ITensor/include ~/.local/pkg/ITensor/lib ~/.local/pkg/ITensor/bin
-cp -r itensor ~/.local/pkg/ITensor/include/
-cp -r lib/*.a ~/.local/pkg/ITensor/lib/
-cp -r lib/*.dll ~/.local/pkg/ITensor/bin/
-```
-
+  ```
+  mkdir -p ~/.local/pkg/ITensor/include ~/.local/pkg/ITensor/lib ~/.local/pkg/ITensor/bin
+  cp -r itensor ~/.local/pkg/ITensor/include/
+  cp -r lib/*.a ~/.local/pkg/ITensor/lib/
+  cp -r lib/*.dll ~/.local/pkg/ITensor/bin/
+  ```
 
 ## Example Program
 
 - Makefile
-
   ```make
   OPENBLAS_ROOT = $(HOME)/.local/pkg/OpenBLAS-v0.2.20-Win64-int32
   ITENSOR_ROOT = $(HOME)/.local/pkg/ITensor
