@@ -5,9 +5,9 @@
 1. Download and install msys2 from http://www.msys2.org/. Install x86_64 version.
 
 2. Start MSYS2 MinGW 64-bit and update the package database and core system packages:
-    ```
-    pacman -Syu
-    ```
+  ```
+  pacman -Syu
+  ```
 
 3. Restart MSYS2 MinGW 64-bit, and install the toolchain:
     ```
@@ -37,9 +37,9 @@
 ### Install ITensor
 
 1. Clone the ITensor repository.
-    ```
-    git clone https://github.com/ITensor/ITensor.git
-    ```
+  ```
+  git clone https://github.com/ITensor/ITensor.git
+  ```
 
 2. Create the configuration file
     ```
