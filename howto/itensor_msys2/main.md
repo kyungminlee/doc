@@ -2,7 +2,7 @@
 
 ### Install Toolchain
 
-1. Download and install msys2 from http://www.msys2.org/. Install x86_64 version.
+1. Download and install msys2 from http://www.msys2.org/. Install x86_64 version.N
 
 2. Start MSYS2 MinGW 64-bit and update the package database and core system packages:
     ```
