@@ -31,7 +31,7 @@
     ```
     git checkout v0.2.20
     make -j4
-    make PREFIX=~/.local/pkg/OpenBLAS-v0.2.20 install
+    make PREFIX=~/.local/pkg/OpenBLAS-v0.2.20-Win64-int32 install
     ```
 
 ### Install ITensor
@@ -51,8 +51,8 @@
     CCCOM=g++ -std=c++11 -Wa,-mbig-obj -O2 -fPIC
         ⋮
     PLATFORM=openblas
-    BLAS_LAPACK_LIBFLAGS=-lpthread -L$(HOME)/.local/pkg/OpenBLAS-v0.2.20/lib -lopenblas
-    BLAS_LAPACK_INCLUDEFLAGS=-I$(HOME)/.local/pkg/OpenBLAS-v0.2.20/include \
+    BLAS_LAPACK_LIBFLAGS=-lpthread -L$(HOME)/.local/pkg/OpenBLAS-v0.2.20-Win64-int32/lib -lopenblas
+    BLAS_LAPACK_INCLUDEFLAGS=-I$(HOME)/.local/pkg/OpenBLAS-v0.2.20-Win64-int32/include \
                            -fpermissive \
                            -DHAVE_LAPACK_CONFIG_H \
                            -DLAPACK_COMPLEX_STRUCTURE
