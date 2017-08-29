@@ -130,3 +130,5 @@
         return 0;
     }
     ```
+* Result
+    ![Example](http://kyungminlee/doc/howto/itensor_msys/run_ex.png)
