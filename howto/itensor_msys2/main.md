@@ -1,6 +1,6 @@
 ## Building ITensor using MSYS2 and MinGW-x64 toolchain on Windows
 
-In this guide I explain how to build ITensor library on Windows. Unfortunately, the current version of ITensor (2.1.0) cannot be built by the lastest version of Microsoft Visual Studio C++ compiler (2017), due to the compiler's lack of support for [Expression SFINAE](http://en.cppreference.com/w/cpp/language/sfinae). We therefore need to use either Cygwin or MinGW compilers on Windows to build ITensor instead. Here I explain how to build ITensor using MinGW-w64 toolchain.
+In this guide I explain how to build ITensor library on Windows. Unfortunately, the current version of ITensor (2.1.0) cannot be built by the lastest version of Microsoft Visual Studio C++ compiler (2017), because the compiler is not fully C++11 compliant (namely, its lack of support for [Expression SFINAE](http://en.cppreference.com/w/cpp/language/sfinae)). We therefore need to use either Cygwin or MinGW compilers on Windows to build ITensor instead. Here I explain how to build ITensor using MinGW-w64 toolchain.
 
 
 ### Install Toolchain
