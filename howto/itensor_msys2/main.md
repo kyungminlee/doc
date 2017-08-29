@@ -158,4 +158,7 @@ The `ex.exe` built by this Makefile is smaller then before. When you try to run 
 
 ![Example](http://kyungminlee.org/doc/howto/itensor_msys2/run_ex_dynamic.png)
 
+The simplest way to solve this problem is to copy all the dependent DLL files to the same directory as the executable. The DLL files for ITensor and OpenBLAS can be found in the `bin` subdirectory of each project. Other DLL files can be found in `/mingw64/bin`:
+```
+$ cp /mingw64/bin/libgcc_s_seh-1.dll /mingw64/bin/libstdc++-6.dll /mingw64/bin/libgfortran-4.dll /mingw64/bin/libwinpthread-1.dll /mingw64/bin/libquadmath-0.dll ~/.local/pkg/ITensor/bin/libitensor*.dll ~/.local/pkg/OpenBLAS-v0.2.20-Win64-int32/bin/libopenblas.dll .
 ```
