@@ -69,53 +69,56 @@ cp -r lib/*.dll ~/.local/pkg/ITensor/bin/
 
 
 ## Example Program
+
 - Makefile
-```make
-OPENBLAS_ROOT = $(HOME)/.local/pkg/OpenBLAS-v0.2.20-Win64-int32
-ITENSOR_ROOT = $(HOME)/.local/pkg/ITensor
-LIBS = \
-	-static-libgcc -static-libstdc++ \
-	-Wl,-Bstatic \
-		-litensor \
-		-lopenblas \
-		-lpthread \
-		-lgfortran \
-		-lquadmath
 
-CXXFLAGS = \
-	-std=c++11 -O3 -Wall \
-	-I$(OPENBLAS_ROOT)/include \
-	-I$(ITENSOR_ROOT)/include
+    ```make
+    OPENBLAS_ROOT = $(HOME)/.local/pkg/OpenBLAS-v0.2.20-Win64-int32
+    ITENSOR_ROOT = $(HOME)/.local/pkg/ITensor
+    LIBS = \
+        -static-libgcc -static-libstdc++ \
+        -Wl,-Bstatic \
+            -litensor \
+            -lopenblas \
+            -lpthread \
+            -lgfortran \
+            -lquadmath
 
-LDFLAGS = \
-	-L$(ITENSOR_ROOT)/lib \
-	-L$(OPENBLAS_ROOT)/lib
+    CXXFLAGS = \
+        -std=c++11 -O3 -Wall \
+        -I$(OPENBLAS_ROOT)/include \
+        -I$(ITENSOR_ROOT)/include
 
-ex: ex.cc
-	$(CXX) $< -o $@ $(CXXFLAGS) $(LDFLAGS) $(LIBS)
-```
+    LDFLAGS = \
+        -L$(ITENSOR_ROOT)/lib \
+        -L$(OPENBLAS_ROOT)/lib
+
+    ex: ex.cc
+    	$(CXX) $< -o $@ $(CXXFLAGS) $(LDFLAGS) $(LIBS)
+    ```
 
 - ex.c
-```c++
-#include <iostream>
-#include <itensor/all.h>
 
-int main(int argc, char** argv)
-{
-    using namespace itensor;
-    Index i("index i", 3);
-    Index j("index j", 4);
+    ```c++
+    #include <iostream>
+    #include <itensor/all.h>
 
-    ITensor T(i,j), U(i), S, V;
+    int main(int argc, char** argv)
+    {
+        using namespace itensor;
+        Index i("index i", 3);
+        Index j("index j", 4);
 
-    T.fill(1.0);
-    svd(T, U, S, V);
+        ITensor T(i,j), U(i), S, V;
 
-    PrintData(T);
-    PrintData(U);
-    PrintData(S);
-    PrintData(V);
+        T.fill(1.0);
+        svd(T, U, S, V);
 
-    return 0;
-}
-```
+        PrintData(T);
+        PrintData(U);
+        PrintData(S);
+        PrintData(V);
+
+        return 0;
+    }
+    ```
