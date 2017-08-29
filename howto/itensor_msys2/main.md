@@ -61,8 +61,11 @@
     ```
     Also add
     ```Makefile
-    DYLIB_EXT = dll
-    DYLIB_FLAGS = -shared -Wl,--export-all-symbols -Wl,--enable-auto-import -Wl,--out-implib,$@.a
+    DYLIB_EXT=dll
+    DYLIB_FLAGS=-shared \
+                -Wl,--export-all-symbols \
+                -Wl,--enable-auto-import \
+                -Wl,--out-implib,$@.a
     ```
 
 4. Build
@@ -72,7 +75,9 @@
 
 5. Install
     ```
-    mkdir -p ~/.local/pkg/ITensor/include ~/.local/pkg/ITensor/lib ~/.local/pkg/ITensor/bin
+    mkdir -p ~/.local/pkg/ITensor/include
+    mkdir -p ~/.local/pkg/ITensor/lib
+    mkdir -p ~/.local/pkg/ITensor/bin
     cp -r itensor ~/.local/pkg/ITensor/include/
     cp -r lib/*.a ~/.local/pkg/ITensor/lib/
     cp -r lib/*.dll ~/.local/pkg/ITensor/bin/
