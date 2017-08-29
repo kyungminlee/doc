@@ -131,4 +131,4 @@
     }
     ```
 * Result
-    ![Example](http://kyungminlee/doc/howto/itensor_msys/run_ex.png)
+    ![Example](http://kyungminlee.org/doc/howto/itensor_msys/run_ex.png)
