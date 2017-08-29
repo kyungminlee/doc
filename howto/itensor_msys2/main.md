@@ -87,26 +87,26 @@
 
 * Makefile
     ```make
-	OPENBLAS_ROOT = $(HOME)/.local/pkg/OpenBLAS-v0.2.20-Win64-int32
-	ITENSOR_ROOT = $(HOME)/.local/pkg/ITensor
-	LIBS = \
-		-static-libgcc -static-libstdc++ \
-		-Wl,-Bstatic \
-			-litensor \
-			-lopenblas \
-			-lpthread \
-			-lgfortran \
-			-lquadmath
-	CXXFLAGS = \
-		-std=c++11 -O3 -Wall \
-		-I$(ITENSOR_ROOT)/include \
-		-I$(OPENBLAS_ROOT)/include
-	LDFLAGS = \
-		-L$(ITENSOR_ROOT)/lib \
-		-L$(OPENBLAS_ROOT)/lib
+    OPENBLAS_ROOT = $(HOME)/.local/pkg/OpenBLAS-v0.2.20-Win64-int32
+    ITENSOR_ROOT = $(HOME)/.local/pkg/ITensor
+    LIBS = \
+    	-static-libgcc -static-libstdc++ \
+    	-Wl,-Bstatic \
+    		-litensor \
+    		-lopenblas \
+    		-lpthread \
+    		-lgfortran \
+    		-lquadmath
+    CXXFLAGS = \
+    	-std=c++11 -O3 -Wall \
+    	-I$(ITENSOR_ROOT)/include \
+    	-I$(OPENBLAS_ROOT)/include
+    LDFLAGS = \
+    	-L$(ITENSOR_ROOT)/lib \
+    	-L$(OPENBLAS_ROOT)/lib
 
-	ex: ex.cc
-		$(CXX) $< -o $@ $(CXXFLAGS) $(LDFLAGS) $(LIBS)
+    ex: ex.cc
+    	$(CXX) $< -o $@ $(CXXFLAGS) $(LDFLAGS) $(LIBS)
     ```
 
 * ex.c
