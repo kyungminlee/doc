@@ -87,27 +87,27 @@
 
 * Makefile
     ```make
-    OPENBLAS_ROOT = $(HOME)/.local/pkg/OpenBLAS-v0.2.20-Win64-int32
-    ITENSOR_ROOT = $(HOME)/.local/pkg/ITensor
-    LIBS = \
-        -static-libgcc -static-libstdc++ \
-        -Wl,-Bstatic \
-            -litensor \
-            -lopenblas \
-            -lpthread \
-            -lgfortran \
-            -lquadmath
+	OPENBLAS_ROOT = $(HOME)/.local/pkg/OpenBLAS-v0.2.20-Win64-int32
+	ITENSOR_ROOT = $(HOME)/.local/pkg/ITensor
+	LIBS = \
+		-static-libgcc -static-libstdc++ \
+		-Wl,-Bstatic \
+			-litensor \
+			-lopenblas \
+			-lpthread \
+			-lgfortran \
+			-lquadmath
+	CXXFLAGS = \
+		-std=c++11 -O3 -Wall \
+		-I$(ITENSOR_ROOT)/include \
+		-I$(OPENBLAS_ROOT)/include \
 
-    CXXFLAGS = \
-        -std=c++11 -O3 -Wall \
-        -I$(OPENBLAS_ROOT)/include \
-        -I$(ITENSOR_ROOT)/include
-    LDFLAGS = \
-        -L$(ITENSOR_ROOT)/lib \
-        -L$(OPENBLAS_ROOT)/lib
+	LDFLAGS = \
+		-L$(ITENSOR_ROOT)/lib \
+		-L$(OPENBLAS_ROOT)/lib
 
-    ex: ex.cc
-    	$(CXX) $< -o $@ $(CXXFLAGS) $(LDFLAGS) $(LIBS)
+	ex: ex.cc
+		$(CXX) $< -o $@ $(CXXFLAGS) $(LDFLAGS) $(LIBS)
     ```
 
 * ex.c
@@ -118,8 +118,8 @@
     int main(int argc, char** argv)
     {
         using namespace itensor;
-        Index i("index i", 3);
-        Index j("index j", 4);
+        Index i("index i", 2);
+        Index j("index j", 2);
         ITensor T(i,j), U(i), S, V;
         T.fill(1.0);
         svd(T, U, S, V);
