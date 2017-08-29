@@ -130,5 +130,5 @@
         return 0;
     }
     ```
-* Result
-    ![Example](http://kyungminlee.org/doc/howto/itensor_msys2/run_ex.png)
+
+![Example](http://kyungminlee.org/doc/howto/itensor_msys2/run_ex.png)
