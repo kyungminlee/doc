@@ -149,7 +149,7 @@ Typing `make` will create `ex.exe`.
 
 ![Example-Static](http://kyungminlee.org/doc/howto/itensor_msys2/example_static_build_run.png)
 
-The resulting binary `ex.exe`, however, has all the dependent libraries (`itensor`, `openblas`, `pthread`, ...) statically linked to it. This will increase size of the binary file and also the build time. To dynamically link the libraries instead, you can remove the flags `-static-libgcc', '-static-libstdc++', and '-Wl,-Bstatic':
+The resulting binary `ex.exe`, however, has all the dependent libraries (`itensor`, `openblas`, `pthread`, ...) statically linked to it. This will increase size of the binary file and also the build time. To dynamically link the libraries instead, you can remove the flags `-static-libgcc`, `-static-libstdc++`, and `-Wl,-Bstatic`:
 ```
 LIBS = \
 	-litensor \
