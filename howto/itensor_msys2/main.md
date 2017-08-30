@@ -39,11 +39,11 @@ This creates directory `~/.local/pkg/OpenBLAS-v0.2.20-Win64-int32` with subdirec
 
 ### Install ITensor
 
-Now we can build ITensor. To clone the ITensor repository:
+Now we are ready to build ITensor. First clone the ITensor repository by
 ```
 $ git clone https://github.com/ITensor/ITensor.git ~/.local/src/ITensor
 ```
-ITensor uses `options.mk` for configuration. A sample configuration file `options.mk` is included in the ITensor repository. Copy it to `options.mk` by
+ITensor uses `options.mk` for configuration. A sample configuration file `options.mk.sample` is included in the ITensor repository. Copy it to `options.mk` by
 ```
 $ cd ~/.local/src/ITensor
 $ cp options.mk.sample options.mk
