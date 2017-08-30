@@ -69,7 +69,7 @@ BLAS_LAPACK_INCLUDEFLAGS=\
     ⋮
 ITENSOR_MAKE_DYLIB=1
 ```
-The compiler flags `-Wa,-mbig-obj -O2` is a workaround for Windows's limitation on binary files. Because of the `-O2` flag, even the debug build will be optimized. This will unfortunately interfere with a debugger if you are using one, making debugging difficult. `ITENSOR_MAKE_DYLIB=1` is for building dynamic library files `libitensor.dll` and `libitensor-g.dll`. Currently, the sample configuration included in ITensor does not support building of `.dll` files. You need to add the following lines to `options.mk`:
+The compiler flags `-Wa,-mbig-obj -O2` are a workaround for Windows's limitation on binary files. Because of the `-O2` flag, even the debug build will be optimized. This will unfortunately interfere with a debugger if you are using one, making debugging difficult. `ITENSOR_MAKE_DYLIB=1` is for building dynamic library files `libitensor.dll` and `libitensor-g.dll`. Currently, the sample configuration included in ITensor does not support building of `.dll` files. You need to add the following lines to `options.mk`:
 ```Makefile
 DYLIB_EXT=dll
 DYLIB_FLAGS=-shared \
