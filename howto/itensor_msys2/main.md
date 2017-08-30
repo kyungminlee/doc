@@ -12,7 +12,7 @@ $ pacman -S mingw-w64-x86_64-toolchain git make vim
 
 ### Install OpenBLAS
 
-ITensor uses BLAS and LAPACK routines. OpenBLAS is an open source implementation of the BLAS, bundled with the reference LAPACK implementation from netlib by default. Binary packages of OpenBLAS for Windows can normally be downloaded from [www.openblas.net](http://www.openblas.net). However, the binary package for the most recent version `v0.2.20` is not available for some reason. Binary package of a previous version `v0.2.19` is available, but it uses an older version of gfortran. So I recommend building OpenBLAS yourself.
+ITensor uses BLAS and LAPACK routines. OpenBLAS is an open source implementation of the BLAS, bundled with the reference LAPACK implementation from netlib by default. Binary packages of OpenBLAS for Windows can normally be downloaded from [www.openblas.net](http://www.openblas.net). However, the binary package for the most recent version `v0.2.20` is not available for some reason. Binary package of a previous version `v0.2.19` is available. But it uses an older version of gfortran, so I recommend building OpenBLAS yourself.
 
 To clone the OpenBLAS repository:
 ```
