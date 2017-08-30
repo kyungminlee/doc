@@ -1,7 +1,6 @@
 theme: jekyll-theme-cayman
-
-markdown:    kramdown
-
+title: How-To's
+markdown: kramdown
 kramdown:
   auto_ids:       true
   entity_output:  as_char
