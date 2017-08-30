@@ -1,5 +1,5 @@
 theme: jekyll-theme-cayman
-title: How-To's
+title: How-Tos
 markdown: kramdown
 kramdown:
   auto_ids:       true
