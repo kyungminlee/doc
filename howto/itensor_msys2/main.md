@@ -119,7 +119,7 @@ int main(int argc, char** argv)
 }
 ```
 
-To compile `ex.cc`, you use the following Makefile:
+To compile `ex.cc`, use the following Makefile:
 
 Makefile
 ```make
