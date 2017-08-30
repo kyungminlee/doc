@@ -1,5 +1,8 @@
 theme: jekyll-theme-cayman
 title: Kyungmin Lee
+descrption:
+show_downloads: true
+google_analytics: UA-105629450-1
 markdown: kramdown
 kramdown:
   auto_ids:       true
