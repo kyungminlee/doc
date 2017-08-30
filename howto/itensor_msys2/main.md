@@ -96,7 +96,7 @@ We're done.
 
 ### Example Program
 
-Let me now show you how to use the library that you just built in your application. Let's say that you have a `ex.cc` file with a main function which uses ITensor library.
+Let me now show you how to use the ITensor library (which you just built) in your application. Let's say that you have a `ex.cc` file with a main function which uses ITensor library.
 
 ex.cc
 ```c++
