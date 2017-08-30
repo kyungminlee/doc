@@ -1,6 +1,6 @@
 ## Building ITensor using MSYS2 and MinGW-x64 toolchain on Windows
 
-In this guide I explain how to build ITensor library on Windows. Unfortunately, the current version of ITensor (2.1.0) cannot be built by the lastest version of Microsoft Visual Studio C++ compiler (2017), because the compiler is not fully C++11 compliant (namely, its lack of support for [Expression SFINAE](http://en.cppreference.com/w/cpp/language/sfinae)). We therefore need to use either Cygwin or MinGW compilers on Windows to build ITensor instead. Here I explain how to build ITensor using MinGW-w64 toolchain.
+In this guide I explain how to build ITensor library on Windows. Unfortunately, the current version of ITensor (2.1.1) cannot be built by the lastest version of Microsoft Visual Studio C++ compiler (2017), because the compiler is not fully C++11 compliant (namely, its lack of support for [Expression SFINAE](http://en.cppreference.com/w/cpp/language/sfinae)). We therefore need to use either Cygwin or MinGW compilers on Windows to build ITensor instead. Here I explain how to build ITensor using MinGW-w64 toolchain.
 
 
 ### Install Toolchain
@@ -43,9 +43,14 @@ Now we are ready to build ITensor. First clone the ITensor repository by
 ```
 $ git clone https://github.com/ITensor/ITensor.git ~/.local/src/ITensor
 ```
-ITensor uses `options.mk` for configuration. A sample configuration file `options.mk.sample` is included in the ITensor repository. Copy it to `options.mk` by
+Again, we checkout the most recent release by
 ```
 $ cd ~/.local/src/ITensor
+$ git tag
+$ git checkout v2.1.1
+```
+ITensor uses `options.mk` for configuration. A sample configuration file `options.mk.sample` is included in the ITensor repository. Copy it to `options.mk` by
+```
 $ cp options.mk.sample options.mk
 ```
 Edit `options.mk` using vim (or your favorite text editor)
@@ -53,7 +58,7 @@ Edit `options.mk` using vim (or your favorite text editor)
 $ vim options.mk
 ```
 Make sure you have the following lines uncommented and correct:
-```Makefile
+```make
 CCCOM=g++ -std=c++11 -Wa,-mbig-obj -O2 -fPIC
     ⋮
 PLATFORM=openblas
@@ -69,7 +74,7 @@ BLAS_LAPACK_INCLUDEFLAGS=\
     ⋮
 ITENSOR_MAKE_DYLIB=1
 ```
-The compiler flags `-Wa,-mbig-obj -O2` are a workaround for Windows's limitation on binary files. Because of the `-O2` flag, even the debug build will be optimized. This will unfortunately interfere with a debugger if you are using one, making debugging difficult. `ITENSOR_MAKE_DYLIB=1` is for building dynamic library files `libitensor.dll` and `libitensor-g.dll`. Currently, the sample configuration included in ITensor does not support building of `.dll` files. You need to add the following lines to `options.mk`:
+The compiler flags `-Wa,-mbig-obj -O2` are a workaround for Windows's limitation on binary files. Because of the `-O2` flag, even the debug build will be optimized. This will unfortunately interfere with a debugger if you are using one, making debugging difficult. `ITENSOR_MAKE_DYLIB=1` is for building dynamic library files `libitensor.dll` and `libitensor-g.dll`. Currently, the sample configuration included in ITensor does not support building of `.dll` files. Therefore, you need to add the following lines to `options.mk`:
 ```Makefile
 DYLIB_EXT=dll
 DYLIB_FLAGS=-shared \
@@ -125,8 +130,7 @@ Makefile
 ```make
 OPENBLAS_ROOT = $(HOME)/.local/pkg/OpenBLAS-v0.2.20-Win64-int32
 ITENSOR_ROOT = $(HOME)/.local/pkg/ITensor
-LIBS = \
-	-static-libgcc -static-libstdc++ \
+LIBS = 	-static-libgcc -static-libstdc++ \
 	-Wl,-Bstatic \
 		-litensor \
 		-lopenblas \
@@ -140,7 +144,6 @@ CXXFLAGS = \
 LDFLAGS = \
 	-L$(ITENSOR_ROOT)/lib \
 	-L$(OPENBLAS_ROOT)/lib
-
 ex: ex.cc
 	$(CXX) $< -o $@ $(CXXFLAGS) $(LDFLAGS) $(LIBS)
 ```
@@ -149,28 +152,38 @@ Typing `make` will create `ex.exe`.
 
 ![Example-Static](http://kyungminlee.org/doc/howto/itensor_msys2/example_static_build_run.png)
 
-The resulting binary `ex.exe`, however, has all the dependent libraries (`itensor`, `openblas`, `pthread`, ...) statically linked to it. This will increase size of the binary file and also the build time. To dynamically link the libraries instead, you can remove the flags `-static-libgcc`, `-static-libstdc++`, and `-Wl,-Bstatic`:
-```
-LIBS = \
-	-litensor \
+Because of the "static" flags, the resulting binary `ex.exe` has all the dependent libraries (`itensor`, `openblas`, `pthread`, ...) statically linked to it. This will increase the size of the binary file and also the build time. To dynamically link the libraries instead, you can remove the flags `-static-libgcc`, `-static-libstdc++`, and `-Wl,-Bstatic`:
+```make
+    ⋮
+LIBS = 	-litensor \
 	-lopenblas \
 	-lpthread \
 	-lgfortran \
 	-lquadmath
+    ⋮
 ```
-The `ex.exe` built by this Makefile is smaller then before. When you try to run it, however, it will complain about the missing dll files:
+The `ex.exe` built by this new Makefile is smaller than before. When you try to run it, however, it will complain about the missing DLL files:
 
 ![Example-Dynamic-Build](http://kyungminlee.org/doc/howto/itensor_msys2/example_dynamic_build.png)
 
-The simplest way to solve this problem is to copy all the dependent DLL files to the same directory as the executable. The DLL files for ITensor and OpenBLAS can be found in the `bin` subdirectory of `~/.local/pkg/ITensor` and `~/.local/pkg/OpenBLAS-v0.2.20-Win64-int32`. Other DLL files can be found in `/mingw64/bin`:
+The simplest way to solve this problem is to copy all the dependent DLL files to the same directory as the executable. The DLL files for ITensor and OpenBLAS can be found in the `bin` subdirectory of `~/.local/pkg/ITensor` and `~/.local/pkg/OpenBLAS-v0.2.20-Win64-int32` (You just installed them there). Other DLL files can be found in `/mingw64/bin`:
 
 ```
-$ cp /mingw64/bin/libgcc_s_seh-1.dll /mingw64/bin/libstdc++-6.dll /mingw64/bin/libgfortran-4.dll /mingw64/bin/libwinpthread-1.dll /mingw64/bin/libquadmath-0.dll ~/.local/pkg/ITensor/bin/libitensor*.dll ~/.local/pkg/OpenBLAS-v0.2.20-Win64-int32/bin/libopenblas.dll .
+$ cp /mingw64/bin/libgcc_s_seh-1.dll \
+     /mingw64/bin/libstdc++-6.dll \
+     /mingw64/bin/libgfortran-4.dll \
+     /mingw64/bin/libwinpthread-1.dll \
+     /mingw64/bin/libquadmath-0.dll \
+     ~/.local/pkg/ITensor/bin/libitensor*.dll \
+     ~/.local/pkg/OpenBLAS-v0.2.20-Win64-int32/bin/libopenblas.dll \
+     .
 ```
 
-Now `ex.exe` is happy.
+Now `ex.exe` runs without complaining.
 
 ![Example-Dynamic-Run](http://kyungminlee.org/doc/howto/itensor_msys2/example_dynamic_run.png)
+
+...
 
 Wait...
 
