@@ -150,7 +150,7 @@ ex: ex.cc
 
 Typing `make` will create `ex.exe`.
 
-![Example-Static](http://kyungminlee.org/doc/howto/itensor_msys2/example_static_build_run.png)
+![Example-Static](example_static_build_run.png)
 
 Because of the "static" flags, the resulting binary `ex.exe` has all the dependent libraries (`itensor`, `openblas`, `pthread`, ...) statically linked to it. This will increase the size of the binary file and also the build time. To dynamically link the libraries instead, you can remove the flags `-static-libgcc`, `-static-libstdc++`, and `-Wl,-Bstatic`:
 ```make
@@ -164,7 +164,7 @@ LIBS = 	-litensor \
 ```
 The `ex.exe` built by this new Makefile is smaller than before. When you try to run it, however, it will complain about the missing DLL files:
 
-![Example-Dynamic-Build](http://kyungminlee.org/doc/howto/itensor_msys2/example_dynamic_build.png)
+![Example-Dynamic-Build](example_dynamic_build.png)
 
 The simplest way to solve this problem is to copy all the dependent DLL files to the same directory as the executable. The DLL files for ITensor and OpenBLAS can be found in the `bin` subdirectory of `~/.local/pkg/ITensor` and `~/.local/pkg/OpenBLAS-v0.2.20-Win64-int32` (You just installed them there). Other DLL files can be found in `/mingw64/bin`:
 
@@ -181,7 +181,7 @@ $ cp /mingw64/bin/libgcc_s_seh-1.dll \
 
 Now `ex.exe` runs without complaining.
 
-![Example-Dynamic-Run](http://kyungminlee.org/doc/howto/itensor_msys2/example_dynamic_run.png)
+![Example-Dynamic-Run](example_dynamic_run.png)
 
 ...
 
