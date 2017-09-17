@@ -4,6 +4,7 @@
 #### 1. With `inline` keyword
 
 * Compiler
+
 ```sh
 $ cc --version
 Apple LLVM version 8.1.0 (clang-802.0.42)
@@ -13,12 +14,13 @@ InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault
 ```
 
 * Files
+
 ```sh
 $ ls
 Makefile   collect.c  collect.h  main.c
 ```
 
-* `main.c` 
+* main.c
 
 ```c
 #include <stdio.h>
@@ -32,7 +34,7 @@ int main()
 }
 ```
 
-* `collect.h` (note the `inline` keyword)
+* collect.h (note the `inline` keyword)
 
 ```c
 #pragma once
@@ -47,7 +49,7 @@ inline int collect(int x)
 int get_sum();
 ```
 
-* `collect.c`
+* collect.c
 
 ```c
 #include "collect.h"
@@ -58,7 +60,7 @@ int get_sum()
 }
 ```
 
-* `Makefile`
+* Makefile
 
 ```make
 all: libcollect.dylib main
@@ -94,7 +96,7 @@ make: *** [libcollect.dylib] Error 1
 
 #### 2. With `static inline` keyword
 
-* `collect.h` (with `static inline`)
+* collect.h (with `static inline`)
 
 ```c
 #pragma once
@@ -142,7 +144,7 @@ $ ls
 Makefile    collect.cc  collect.h   main.cc
 ```
 
-* `main.cc`
+* main.cc
 
 ```c++
 #include <cstdio>
@@ -156,7 +158,7 @@ int main()
 }
 ```
 
-* `collect.h`
+* collect.h
 
 ```c++
 #pragma once
@@ -171,9 +173,9 @@ inline int collect(int x)
 int get_sum();
 ```
 
-* `collect.cc`
+* collect.cc
 
-```c
+```c++
 #include "collect.h"
 
 int get_sum()
@@ -182,7 +184,7 @@ int get_sum()
 }
 ```
 
-* `Makefile`
+* Makefile
 
 ```make
 all: libcollect.dylib main
@@ -207,7 +209,7 @@ $ ./main
 
 ### 2. With `static inline` keyword
 
-* `collect.h`
+* collect.h
 
 ```c++
 #pragma once
