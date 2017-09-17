@@ -2,6 +2,7 @@
 
 ### C
 #### 1. With `inline` keyword
+
 * Compiler
 ```sh
 $ cc --version
@@ -10,12 +11,14 @@ Target: x86_64-apple-darwin16.7.0
 Thread model: posix
 InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
 ```
+
 * Files
 ```sh
 $ ls
 Makefile   collect.c  collect.h  main.c
 ```
-* `main.c`
+
+* `main.c` 
 ```c
 #include <stdio.h>
 #include "collect.h"
@@ -27,6 +30,7 @@ int main()
   return 0;
 }
 ```
+
 * `collect.h` (note the `inline` keyword)
 ```c
 #pragma once
@@ -40,6 +44,7 @@ inline int collect(int x)
 
 int get_sum();
 ```
+
 * `collect.c`
 ```c
 #include "collect.h"
@@ -49,6 +54,7 @@ int get_sum()
   return collect(0);
 }
 ```
+
 * `Makefile`
 ```make
 all: libcollect.dylib main
@@ -59,6 +65,7 @@ libcollect.dylib: collect.c collect.h
 main: main.c libcollect.dylib
         $(CC) $< -o $@ -L. -lcollect
 ```
+
 * Compile & Run
 ```
 $ make
@@ -81,6 +88,7 @@ make: *** [libcollect.dylib] Error 1
 ```
 
 #### 2. With `static inline` keyword
+
 * `collect.h` (with `static inline`)
 ```c
 #pragma once
@@ -93,6 +101,7 @@ static inline int collect(int x)
 }
 int get_sum();
 ```
+
 * Compile & run
 ```
 $ make
@@ -108,6 +117,7 @@ $
 ### C++
 
 ### 1. With `inline` keyword
+
 * Compiler
 ```
 $ c++ --version
@@ -116,11 +126,13 @@ Target: x86_64-apple-darwin16.7.0
 Thread model: posix
 InstalledDir: /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin
 ```
+
 * Files
 ```
 $ ls
 Makefile    collect.cc  collect.h   main.cc
 ```
+
 * `main.cc`
 ```c++
 #include <cstdio>
@@ -133,6 +145,7 @@ int main()
   return 0;
 }
 ```
+
 * `collect.h`
 ```c++
 #pragma once
@@ -165,6 +178,7 @@ libcollect.dylib: collect.cc collect.h
 main: main.cc libcollect.dylib
         $(CXX) $< -o $@ -L. -lcollect
 ```
+
 * Compile & Run
 ```sh
 $ make
@@ -176,6 +190,7 @@ $ ./main
 ```
 
 ### 2. With `static inline` keyword
+
 * `collect.h`
 ```c++
 #pragma once
@@ -189,6 +204,7 @@ static inline int collect(int x)
 
 int get_sum();
 ```
+
 * Compile & Run
 ```
 $ make
