@@ -1,7 +1,9 @@
 ## Pathname mangling in MSYS + MinGW with nested Makefile
 
 For this article, we use an executable which prints out all of its arguments
+
 * showargs.c
+
 ```c
 #include <stdio.h>
 
@@ -22,6 +24,7 @@ int main(int argc, char** argv)
 Create a directory structure with nested `Makefile`s.
 
 * List of files
+
 ```sh
 $ find .
 .
@@ -34,12 +37,14 @@ $ find .
 Contents of the `Makefile`s are as follows:
 
 * Makefile
+
 ```make
 all:
 	cd src && $(MAKE)
 ```
 
 * src/Makefile
+
 ```make
 all:
 	../showargs / /usr
@@ -48,6 +53,7 @@ all:
 ### Results
 
 * Using msys-make
+
 ```sh
 $ make
 cd src && make
@@ -62,6 +68,7 @@ make[1]: Leaving directory '/home/user/test/src'
 ```
 
 * Using mingw32-make
+
 ```sh
 $ mingw32-make.exe
 cd src && C:/msys64/mingw64/bin/mingw32-make
